@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
-import './LocationList.css';
+// import { Link } from 'react-router-dom'
+import './App.css';
 
 class LocationList extends Component {
   render() {
     return (
-      <div className="something">
-
+      <div className="location-list">
+        <div className="location-list-items">
+        <p>items</p>
+        </div>
+        <div className="location-list-info">
+        <p>info</p>
+        </div>
       </div>
     );
   }

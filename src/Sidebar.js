@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
-import './pageItem.css';
+import './App.css';
 
-class pageItem extends Component {
+class InfoPanel extends Component {
   render() {
     return (
-      <div className="something">
-
+      <div className="info-panel">
+        <p>hello</p>
       </div>
     );
   }
 }
 
-export default pageItem;
+export default InfoPanel;

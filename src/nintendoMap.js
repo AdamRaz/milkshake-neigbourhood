@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 // import { Link } from 'react-router-dom';
-import './nintendoMap.css';
+import './App.css';
 // import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps";
 // import scriptLoader from 'react-async-script-loader';
 
@@ -184,14 +184,14 @@ class NintendoMap extends Component {
     let markers = this.state.markers;
     console.log ("we have markers: " + markers);
     return (
-      <div>
-        <br/>
-        <p>map component content</p>
+      <div className="map-container">
+        {/* <br/> */}
+        {/* <p>map component content</p> */}
         <button className="removeMarkers" onClick={() => this.hideMarkerButton(markers)}>hide markers</button>
         <button className="addMarkers" onClick={() => this.showMarkerButton(markers)}>set markers</button>
 
-        <div id="map2"></div>
-        <br/>
+        {/* <div id="map2"></div> */}
+        {/* <br/> */}
       </div>
     );
   }

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom'
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 import NintendoMap from './nintendoMap'
+import LocationList from './LocationList'
+// import InfoPanel from './Sidebar.js'
 
 class App extends Component {
 
@@ -29,15 +31,19 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
+          {/* <img src={logo} className="App-logo" alt="logo" /> */}
+          <h1 className="App-title">Neighbourhood Map - New York & Coffee</h1>
         </header>
-        <p className="App-intro">
+        {/* <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        </p> */}
       <Route path='/' render={() => (
         // see - https://www.npmjs.com/package/google-maps-react#manually-loading-the-google-api
+        <div id="map3">
         <NintendoMap google={window.google} updateSidebar={(target) => this.updateSidebarInfoTarget(target)}/>
+        <LocationList/>
+        {/* <InfoPanel/> */}
+        </div>
       )}/>
  
       </div>
