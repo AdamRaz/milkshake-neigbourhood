@@ -50,17 +50,18 @@ class NintendoMap extends Component {
         });
         console.log(`marker ${i} data - id: ${marker.id}, title: ${marker.title}, icon: ${marker.icon}`);
 
-        marker.addListener('click', function() {
-          console.log(`marker: ${marker}`);
-          // marker.setMap(null);
-          if (marker.getAnimation() !== null) {
-            // TODO - set a different colour image ... setIcon method???
-            marker.setAnimation(null);
-          } else {
-            marker.setAnimation(google.maps.Animation.BOUNCE);
-          } 
-          // see https://developers.google.com/maps/documentation/javascript/markers       
-        });
+        // marker.addListener('mousedown', function() {
+        //   console.log(`marker: ${marker}`);
+        //   // marker.setMap(null);
+        //   if (marker.getAnimation() !== null) {
+        //     // TODO - set a different colour image ... setIcon method???
+        //     marker.setAnimation(null);
+        //   } else {
+        //     marker.setAnimation(google.maps.Animation.BOUNCE);
+        //     // this.deselectOtherMarkers(marker);
+        //   } 
+        //   // see https://developers.google.com/maps/documentation/javascript/markers       
+        // });
 
         this.markers.push(marker);
         // markers[i].setMap(this.map);
@@ -69,7 +70,32 @@ class NintendoMap extends Component {
     this.setState({markers: this.markers});
   // let showMarkerButton = document.querySelector('.addMarkers');
   // let hideMarkerButton = document.querySelector('.removeMarkers');
+      this.addClickEventToMarkers();
+  }
 
+  addClickEventToMarkers () {
+    let markers = this.state.markers;
+
+    console.log(`deselecting markers: ${markers}`);
+    console.log (`this is ${this}`)
+    console.log (`this.state is ${this.state}`)
+
+    // for (let i = 0; i < markers.length ; i++) {
+    //   markers[i].addListener('click', function() {
+    //     console.log("adding events to markers");
+    //   });
+    // }
+
+  }
+
+  deselectOtherMarkers (markers, i) {
+    // let markers = this.state.markers;
+    console.log (`this is ${this}`)
+    console.log (`this.state is ${this.state}`)
+    console.log(`deselecting all markers apart from: ${markers[i].id}`);
+    // for (let i = 0; i < markers.length ; i++) {
+
+    // }
   }
 
   componentDidMount () {
@@ -104,16 +130,47 @@ class NintendoMap extends Component {
   }
 
   showMarkerButton = function(markers) {
+    console.log (`this is ${this}`)
+    console.log (`this.state is ${this.state}`)
+    let google = this.props.google;
+    let functionTest = this.addClickEventToMarkers;
+    console.log(functionTest);
+    // functionTest();
     for (let i = 0; i < markers.length; i++) {
       markers[i].setMap(this.map);
+
+      markers[i].addListener('mousedown', function() {
+        // console.log(`marker: ${marker}`);
+        // marker.setMap(null);
+        if (markers[i].getAnimation() !== null) {
+          // TODO - set a different colour image ... setIcon method???
+          markers[i].setAnimation(null);
+        } else {
+          markers[i].setAnimation(google.maps.Animation.BOUNCE);
+          // functionTest(markers, i);
+          for (let j = 0; j < markers.length; j++) {
+            if (i !== j) {
+              console.log("set null animation!");
+              console.log(`marker: ${markers[i]}, id: ${markers[i].id}, i is ${i}, j is ${j}`);
+
+              markers[j].setAnimation(null);
+            }
+          }
+
+          // this.deselectOtherMarkers(markers[i]);
+        } 
+        // see https://developers.google.com/maps/documentation/javascript/markers       
+      });
     }
-    console.log(markers);
+
+  console.log("showMark function");
   };
 
   hideMarkerButton = function(markers) {
     // console.log(NintendoMap.state);
     for (let i = 0; i < markers.length; i++) {
       markers[i].setMap(null);
+      console.log(`logging marker id from function ${markers[i].id}`);
     }
   };
 
