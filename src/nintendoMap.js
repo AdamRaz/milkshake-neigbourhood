@@ -73,13 +73,16 @@ class NintendoMap extends Component {
       this.addClickEventToMarkers();
   }
 
-  addClickEventToMarkers () {
-    let markers = this.state.markers;
+  addClickEventToMarkers (i) {
+    let markers = this.markers;
+    // setting to this.state.markers raised errors when accessing id etc.
+    // can pass info up to app state (function from app that passes update function down to here, then call that to update which marker info should be shown by another component)
 
-    console.log(`deselecting markers: ${markers}`);
+    console.log(`deselecting markers: ${markers[1].id} ${markers[1].position}`);
     console.log (`this is ${this}`)
     console.log (`this.state is ${this.state}`)
-
+    this.props.updateSidebar(markers[1].position);
+    // console.log(`marker ${i} data - id: ${markers[i].id}, title: ${markers[i].title}`);
     // for (let i = 0; i < markers.length ; i++) {
     //   markers[i].addListener('click', function() {
     //     console.log("adding events to markers");
@@ -130,24 +133,26 @@ class NintendoMap extends Component {
   }
 
   showMarkerButton = function(markers) {
-    console.log (`this is ${this}`)
+    console.log (`showMarker this is ${this}`)
     console.log (`this.state is ${this.state}`)
     let google = this.props.google;
-    let functionTest = this.addClickEventToMarkers;
+    let functionTest = this.addClickEventToMarkers.bind(this);
     console.log(functionTest);
     // functionTest();
     for (let i = 0; i < markers.length; i++) {
       markers[i].setMap(this.map);
 
-      markers[i].addListener('mousedown', function() {
+      markers[i].addListener('click', function() {
         // console.log(`marker: ${marker}`);
         // marker.setMap(null);
         if (markers[i].getAnimation() !== null) {
           // TODO - set a different colour image ... setIcon method???
           markers[i].setAnimation(null);
+          console.log (`this is ${this}`)
+          console.log (`this.state is ${this.state}`)
         } else {
           markers[i].setAnimation(google.maps.Animation.BOUNCE);
-          // functionTest(markers, i);
+          functionTest(i);
           for (let j = 0; j < markers.length; j++) {
             if (i !== j) {
               console.log("set null animation!");

@@ -6,6 +6,9 @@ import NintendoMap from './nintendoMap'
 
 class App extends Component {
 
+  state = {
+    target: {}
+  }
 
   componentDidMount () {
     
@@ -16,6 +19,10 @@ class App extends Component {
   // script.defer = true;
 
   document.getElementById('root').appendChild(script);
+  }
+
+  updateSidebarInfoTarget(target) {
+    console.log(`from App component, new sidebar target is: ${target}`)
   }
 
   render() {
@@ -30,7 +37,7 @@ class App extends Component {
         </p>
       <Route path='/' render={() => (
         // see - https://www.npmjs.com/package/google-maps-react#manually-loading-the-google-api
-        <NintendoMap google={window.google}/>
+        <NintendoMap google={window.google} updateSidebar={(target) => this.updateSidebarInfoTarget(target)}/>
       )}/>
  
       </div>
