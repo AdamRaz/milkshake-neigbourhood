@@ -70,15 +70,15 @@ class NintendoMap extends Component {
     this.setState({markers: this.markers});
   // let showMarkerButton = document.querySelector('.addMarkers');
   // let hideMarkerButton = document.querySelector('.removeMarkers');
-      this.addClickEventToMarkers();
+      // this.addClickEventToMarkers();
   }
 
   addClickEventToMarkers (i) {
     let markers = this.markers;
     // setting to this.state.markers raised errors when accessing id etc.
     // can pass info up to app state (function from app that passes update function down to here, then call that to update which marker info should be shown by another component)
-
-    console.log(`deselecting markers: ${markers[1].id} ${markers[1].position}`);
+    console.log (`i is ${i}`)
+    console.log(`deselecting markers: ${markers[i].id} ${markers[i].position}`);
     console.log (`this is ${this}`)
     console.log (`this.state is ${this.state}`)
     this.props.updateSidebar(markers[1].position);
@@ -137,6 +137,7 @@ class NintendoMap extends Component {
     console.log (`this.state is ${this.state}`)
     let google = this.props.google;
     let functionTest = this.addClickEventToMarkers.bind(this);
+    // issues with calling a function without binding 'this' first
     console.log(functionTest);
     // functionTest();
     for (let i = 0; i < markers.length; i++) {
