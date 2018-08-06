@@ -16,7 +16,7 @@
 }
 
 .App-title {
-  font-size: calc(1em + 0.5vw);
+  font-size: calc(14px + 0.75vw);
 }
 
 .App-intro {
@@ -55,6 +55,7 @@ width: 50%;
   margin-bottom: 0;
   list-style-type: none;
   overflow: auto;
+  font-size: calc(10px + 0.5vw);
 }
 
 .location-list-info {
@@ -84,5 +85,5 @@ width: 50%;
 }
 
 h2 {
-  font-size: calc(1em + 0.25vw);
+  font-size: calc(14px + 0.5vw);
 }

@@ -10,26 +10,38 @@ class LocationList extends Component {
   }
 
   filterLocations = (event) => {
+    // AR - does not work for search key words in opposite order
     let searchTerm = event.target.value;
-    let trimmedSearchTerm = searchTerm.trim();
+    let trimmedSearchTerm = searchTerm.trim().toLowerCase();
     if (trimmedSearchTerm) {
       console.log(trimmedSearchTerm);
-      this.filteredLocations = this.state.locations.filter((location) => location.includes(trimmedSearchTerm));
+      this.filteredLocations = this.state.locations.filter((location) => location.lowerCaseName.includes(trimmedSearchTerm));
       console.log(this.filteredLocations);
       this.setState({filteredLocations: this.filteredLocations});
-
+      this.props.updateAppFilteredLocations(this.filteredLocations);
     } else {
       this.setState({filteredLocations: this.state.locations});
+      this.props.updateAppFilteredLocations(this.filteredLocations);
     }
   }
 
   componentWillMount () {
-    this.setState({filteredLocations: this.state.locations});
-    this.filteredLocations = this.state.locations;
+    this.setState({locations: this.props.locations})
+    this.setState({filteredLocations: this.props.locations});
+    this.filteredLocations = this.props.locations;
+    console.log("location list data from props:")
+    console.log(this.props.locations);
+
+    // console.log(this.state.locations);
+    // console.log(this.props.locations[0].title);
   }
 
   render() {
     this.locations = this.state.filteredLocations;
+    console.log("location render function");
+    // console.log(this.state.locations);
+    // this.locations = this.props.locations;
+    // console.log(this.locations[0].title);
     return (
       <div className="location-list">
         <div className="location-list-items">
@@ -39,9 +51,9 @@ class LocationList extends Component {
         <div className="location-list-elements-container">
         <ul className="location-list-elements">
           {this.locations.map((location) => (
-            <li key={location}>{location}</li>
+            <li key={location.id}>{location.title}</li>
           ))}
-          <li></li>
+          <li>location 1</li>
           <li>location 2</li>
           <li>location 3</li>
           <li>location 4</li>
