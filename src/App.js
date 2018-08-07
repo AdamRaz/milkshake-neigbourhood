@@ -42,7 +42,7 @@ class App extends Component {
   }
 
   updateSidebarInfoTarget(target) {
-    console.log(`from App component, new sidebar target is: ${target}`)
+    console.log(`from App component, new sidebar target is: ${target.id} with ${target.title} at ${target.position}`)
   }
 
   updateAppFilteredLocations = (filteredLocations) => {
@@ -62,11 +62,20 @@ class App extends Component {
         {/* <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
         </p> */}
+        {/* TODO - remove router, no need! */}
       <Route path='/' render={() => (
         // see - https://www.npmjs.com/package/google-maps-react#manually-loading-the-google-api
         <div id="map3">
-        <NintendoMap google={window.google} locations={this.state.locations} updateSidebar={(target) => this.updateSidebarInfoTarget(target)}/>
-        <LocationList locations={this.state.locations} updateAppFilteredLocations={this.updateAppFilteredLocations}/>
+        <NintendoMap 
+          google={window.google} 
+          locations={this.state.locations} 
+          updateSidebar={(target) => this.updateSidebarInfoTarget(target)}
+          filteredLocations={this.state.filteredLocations}
+        />
+        <LocationList 
+          locations={this.state.locations} 
+          updateAppFilteredLocations={this.updateAppFilteredLocations}
+        />
         {/* <InfoPanel/> */}
         </div>
       )}/>

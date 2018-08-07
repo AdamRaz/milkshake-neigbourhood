@@ -75,7 +75,7 @@ class NintendoMap extends Component {
     console.log(`deselecting markers: ${markers[i].id} ${markers[i].position}`);
     console.log (`this is ${this}`)
     console.log (`this.state is ${this.state}`)
-    this.props.updateSidebar(markers[i].position);
+    this.props.updateSidebar(markers[i]);
     // console.log(`marker ${i} data - id: ${markers[i].id}, title: ${markers[i].title}`);
     // for (let i = 0; i < markers.length ; i++) {
     //   markers[i].addListener('click', function() {

@@ -20,8 +20,9 @@ class LocationList extends Component {
       this.setState({filteredLocations: this.filteredLocations});
       this.props.updateAppFilteredLocations(this.filteredLocations);
     } else {
-      this.setState({filteredLocations: this.state.locations});
-      this.props.updateAppFilteredLocations(this.filteredLocations);
+      console.log("resetting filtered locations");
+      this.setState({filteredLocations: this.props.locations});
+      this.props.updateAppFilteredLocations(this.props.locations);
     }
   }
 
