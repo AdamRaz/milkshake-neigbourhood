@@ -6,6 +6,7 @@ class Map extends Component {
     markers: []
   }
 
+  // AR - create map & markers, then push into an array in state
   componentWillMount () {
     // console.log("will mount map component");
     let google = this.props.google;
@@ -32,10 +33,11 @@ class Map extends Component {
     }
     // console.log(`marker array: ${this.markers}`);
     this.setState({markers: this.markers});
-    this.showMarkerButton(this.markers);
+    this.addMarkerEventListener(this.markers);
   }
 
-  addClickEventToMarkers (i) {
+  // AR - pass marker click event (id of marker) up to App component
+  clickEventOnMarkers (i) {
     let markers = this.markers;
     // setting to this.state.markers raised errors when accessing id etc.
 
@@ -44,12 +46,12 @@ class Map extends Component {
     this.props.updateSidebar(markers[i]);
   }
 
-  showMarkerButton = function(markers) {
+  // AR - add event listener to markers, control bounce animation
+  addMarkerEventListener = function(markers) {
     let google = this.props.google;
-    let functionTest = this.addClickEventToMarkers.bind(this);
+    let clickMarkerEvent = this.clickEventOnMarkers.bind(this);
     // issues with calling a function without binding 'this' first
-    // console.log(functionTest);
-    // functionTest();
+    // console.log(clickMarkerEvent);
     for (let i = 0; i < markers.length; i++) {
       markers[i].setMap(this.map);
       markers[i].addListener('click', function() {
@@ -57,7 +59,7 @@ class Map extends Component {
           markers[i].setAnimation(null);
         } else {
           markers[i].setAnimation(google.maps.Animation.BOUNCE);
-          functionTest(i);
+          clickMarkerEvent(i);
           for (let j = 0; j < markers.length; j++) {
             if (i !== j) {
               // console.log("set null animation!");
@@ -72,7 +74,8 @@ class Map extends Component {
   // console.log("showMark function");
   };
 
-  hideMarkerButton = function(locations, markers) {
+  filterMarkers = function(locations, markers) {
+    // AR - don't filter unless the number of markers on the page is more than the number of visible list items
     if (markers.length > locations.length) {
    
       // AR - create array of ids to compare against:
@@ -94,16 +97,17 @@ class Map extends Component {
   componentWillReceiveProps () {
     // AR - tried setting function in willRecieveProps to avoid the problem causing map markers not to animate
 
-    // AR - previously had function called from render() function, not sure how best to keep marker display up-to-date
+    // AR - previously had a function called from render() function, not sure how best to keep marker display up-to-date
 
     let markers = this.state.markers;
     let filteredLocations = this.props.filteredLocations;
 
-    // AR - to fix animatin bug: can check event to make sure only does this when keyboard event is ocurring?
+    // AR - to fix animation bug: can check event to make sure only does this when keyboard event is ocurring?
 
-    this.hideMarkerButton(filteredLocations, markers);
+    this.filterMarkers(filteredLocations, markers);
   }
 
+  // AR - after marker id comes up from LocationList (from clicking on list), to App, take id and animate marker id and cancel animation on other markers
   animateMarker = (i) => {
     let google = this.props.google;
     let markers = this.state.markers;
@@ -122,9 +126,6 @@ class Map extends Component {
     if (mapTarget.id) {
       this.animateMarker(mapTarget.id);
     }
-    // let markers = this.state.markers;
-    // let filteredLocations = this.props.filteredLocations;
-    // console.log ("we have markers: " + markers);
     return (
       // AR - nothing rendered here as the map is attached to index.html
       <div className="map-container">

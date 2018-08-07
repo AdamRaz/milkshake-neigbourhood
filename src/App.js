@@ -35,8 +35,6 @@ class App extends Component {
     this.setState({
       target:{
         id: target.id,
-        // title: target.title,
-        // position: target.position,
       }
     });
   }
@@ -56,8 +54,6 @@ class App extends Component {
     this.setState({
       target:{
         id: target,
-        // title: target.title,
-        // position: target.position,
       }
     });
   }

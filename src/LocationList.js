@@ -31,8 +31,7 @@ class LocationList extends Component {
   componentWillReceiveProps(newProps)  {
     // console.log("list component recieving props");
     // console.log(this.props.mapTarget);
-    //  console.log(newProps.maindata)
-    
+
     // TODO - strange bug where must click marker a few times before props update, even though devTools react show state/props are fine!!!
   }
   
@@ -66,6 +65,7 @@ class LocationList extends Component {
 
   render() {
     this.locations = this.state.filteredLocations;
+    // AR - 'drinkPlaces' is foursquare API data
     this.drinkPlaces = this.state.drinkPlaces;
     this.mapTarget = this.props.mapTarget;
     this.updateSidebar = this.props.updateSidebarFromList;
@@ -73,16 +73,24 @@ class LocationList extends Component {
     let id = this.mapTarget.id;
     let locationName;
     // console.log("location render function");
-    if (id >= 0) {
-      // console.log(this.state.extraData[id].response.groups.items[0].venue.name);
-      let item = this.state.extraData[id].response.groups;
-      // console.log(item[0].items[0].venue.name);
-      // console.log(item[0].items[0].venue.location.address);
-      this.drinkPlaces[0].name = item[0].items[0].venue.name;
-      this.drinkPlaces[0].address = item[0].items[0].venue.location.address;
-      locationName = 'near ' +this.locations[id].title;
 
+    // AR - just check id is assigned a number from props first (marker ids are 1 to 5)
+
+    if (id >= 0) {
+
+    // AR - check foursquare data is ready, needs a better check
+      if (this.drinkPlaces[0].name) {
+        // AR - extract data from fourSquare API response
+        let item = this.state.extraData[id].response.groups;
+        this.drinkPlaces[0].name = item[0].items[0].venue.name;
+        this.drinkPlaces[0].address = item[0].items[0].venue.location.address;
+        // AR - build string to fit in html heading below
+        locationName = 'near ' +this.locations[id].title;
+      } else {
+        window.alert("no foursquare data available yet");
+      }
     }
+ 
 
     return (
       <div className="location-list">
