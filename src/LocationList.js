@@ -137,39 +137,39 @@ class LocationList extends Component {
     )
   )
   )
-      const request = require('request');
-      request({
-        url: 'https://api.foursquare.com/v2/venues/explore',
-        method: 'GET',
-        qs: {
-          client_id: 'JIN1RTWFVHTESSF0J51MA2R3POD12X4OEI0LFR4I0YBUHMAJ',
-          client_secret: 'PD4XAVZK5ADSLYJORCUGK3JKJEWCPANFKIENMGG3NZYW03V1',
-          ll: `${lat2},${lng2}`,
-          query: 'milkshake',
-          v: '20180323',
-          limit: 2
-        }
-      }, function(err, res, body) {
-        if (err) {
-          console.error(err);
-          // TODO link to error display in UI
-        } else {
-          let jsonBody = JSON.parse(body);
-          let items = jsonBody.response.groups;
+      // const request = require('request');
+      // request({
+      //   url: 'https://api.foursquare.com/v2/venues/explore',
+      //   method: 'GET',
+      //   qs: {
+      //     client_id: 'JIN1RTWFVHTESSF0J51MA2R3POD12X4OEI0LFR4I0YBUHMAJ',
+      //     client_secret: 'PD4XAVZK5ADSLYJORCUGK3JKJEWCPANFKIENMGG3NZYW03V1',
+      //     ll: `${lat2},${lng2}`,
+      //     query: 'milkshake',
+      //     v: '20180323',
+      //     limit: 2
+      //   }
+      // }, function(err, res, body) {
+      //   if (err) {
+      //     console.error(err);
+      //     // TODO link to error display in UI
+      //   } else {
+      //     let jsonBody = JSON.parse(body);
+      //     let items = jsonBody.response.groups;
 
-          console.log(items);
-          console.log(items[0].items[0].venue.name);
-          console.log(items[0].items[0].venue.location.address);
-          console.log(items[0].items[0].venue.location.formattedAddress);
+      //     console.log(items);
+      //     console.log(items[0].items[0].venue.name);
+      //     console.log(items[0].items[0].venue.location.address);
+      //     console.log(items[0].items[0].venue.location.formattedAddress);
 
-          console.log(items[0].items[1].venue.name);
-          console.log(items[0].items[1].venue.location.address);
-          console.log(items[0].items[1].venue.location.formattedAddress);
-          // let extraData = {id: i, placeName: items[0].items[0].venue.name, address: items[0].items[0].venue.location.address};
-          let extraDataArray =[];
-          let extraData = {id: i, day: 'sat'};
-          extraDataArray.push(extraData);
-          console.log(`extraDataArray: ${extraDataArray[0].day}`);
+      //     console.log(items[0].items[1].venue.name);
+      //     console.log(items[0].items[1].venue.location.address);
+      //     console.log(items[0].items[1].venue.location.formattedAddress);
+      //     // let extraData = {id: i, placeName: items[0].items[0].venue.name, address: items[0].items[0].venue.location.address};
+      //     let extraDataArray =[];
+      //     let extraData = {id: i, day: 'sat'};
+      //     extraDataArray.push(extraData);
+      //     console.log(`extraDataArray: ${extraDataArray[0].day}`);
           // console.log(this.props.locations)
           // this.drinkPlaces = [
           //   {
@@ -183,12 +183,12 @@ class LocationList extends Component {
           // ]
           // this.setState({drinkPlaces: this.drinkPlaces})
           // let venues = body['response']['groups'][0]['items'];
-        }
-      });
+      //   }
+      // });
 
 
     }
-    console.log(`extraDataArray 2: ${extraDataArray}`);
+    // console.log(`extraDataArray 2: ${extraDataArray}`);
     // console.log(this.state.locations);
     // console.log(this.props.locations[0].title);
   }
@@ -204,7 +204,12 @@ class LocationList extends Component {
     // this.getDrinkPlaceData(this.mapTarget);
     console.log("location render function");
     if (id >= 0) {
-      console.log(this.state.extraData[id].response);
+      // console.log(this.state.extraData[id].response.groups.items[0].venue.name);
+      let item = this.state.extraData[id].response.groups;
+      console.log(item[0].items[0].venue.name);
+      console.log(item[0].items[0].venue.location.address);
+      this.drinkPlaces[0].name = item[0].items[0].venue.name;
+      this.drinkPlaces[0].address = item[0].items[0].venue.location.address;
     }
     console.log(`target id is ${id}`);
     // console.log(this.state.locations);
