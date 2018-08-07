@@ -241,17 +241,6 @@ class LocationList extends Component {
               </button>
             </li>
           ))}
-          <li  onClick={(event) => this.updateSidebar(event)}>location 1</li>
-          <li>location 2</li>
-          <li>location 3</li>
-          <li>location 4</li>
-          <li>location 5</li>
-          <li>location 6</li>
-          <li>location 7</li>
-          <li>location 8</li>
-          <li>location 9</li>
-          <li>location 10</li>
-          <li>location 11</li>
         </ul>
         </div>
         </div>

@@ -103,3 +103,9 @@ h3 {
   font-size: calc(10px + 0.35vw);
   text-decoration-line: underline;
 }
+
+.see-sidebar-info {
+  background-color: #555;
+  border-radius: 10px;
+  margin-bottom: 5px;
+}
