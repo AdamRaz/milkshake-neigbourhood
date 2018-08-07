@@ -25,7 +25,7 @@ class App extends Component {
     target: [],
   }
 
-
+  
   // AR - function brings the id of a clicked map marker up to App state level
   updateSidebarInfoTarget = (target) => {
     // console.log(`from App component, new sidebar target is: ${target.id} with ${target.title} at ${target.position}`)
@@ -41,18 +41,14 @@ class App extends Component {
     });
   }
 
-  // AR - attempted to use this event to register service worker
+
+  // AR - attempted to use this event to register service worker... broke npm start!
   componentWillMount() {
     // AR - not sure how to use service worker here
     
-    // navigator.serviceWorker.register('./../neighbourhood-sw.js').then(function(reg) {
-    //   console.log('Yay!');
-    //   console.log('Registration succeeded. Scope is ' + reg.scope);
-    //   // see - https://stackoverflow.com/questions/35780397/understanding-service-worker-scope
-    // }).catch(function(err) {
-    //   console.log('Boo!');
-    // }); 
+    // navigator.serviceWorker.register.... etc.
   }
+
 
   // AR - bring data up from locationList (list of locations that display above-left of map element)
   updateSidebarInfoFromList = (event, target) => {
@@ -66,6 +62,7 @@ class App extends Component {
     });
   }
 
+  
   // AR - once locations filtered via input box, bring filtered list here
   updateAppFilteredLocations = (filteredLocations) => {
     // AR - declare as arrow function to maintain context without binding, see: https://medium.com/@ruthmpardee/passing-data-between-react-components-103ad82ebd17
