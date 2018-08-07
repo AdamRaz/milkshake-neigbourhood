@@ -87,3 +87,7 @@ width: 50%;
 h2 {
   font-size: calc(14px + 0.5vw);
 }
+
+h3 {
+  font-size: calc(11px + 0.5vw);
+}

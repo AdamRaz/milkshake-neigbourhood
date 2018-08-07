@@ -5,8 +5,13 @@ import React, { Component } from 'react';
 class LocationList extends Component {
 
   state = {
-    locations: ['york', 'london', 'londonderry', 'new york', 'yorkshire']
-
+    locations: ['york', 'london', 'londonderry', 'new york', 'yorkshire'],
+    drinkPlaces: [{
+      name: 'click a marker/location to find out!',
+      address: 'nowhere'
+    }],
+    extraData: []
+    
   }
 
   filterLocations = (event) => {
@@ -26,20 +31,182 @@ class LocationList extends Component {
     }
   }
 
+  getDrinkPlaceData = (position) => {
+    console.log("before making foursquare request");
+
+    console.log(position);
+    console.log(position.id);
+    console.log(position.title);
+
+    console.log(this.props.locations[0].location)
+
+    if (position.title) {
+      let index = position.id;
+      // let latlng = this.props.locations[index].location;
+      console.log("making main foursquare requests");
+      console.log(position.title);
+      console.log(position.position);
+      const request = require('request');
+      // let lat = position.lat;
+      // let long = position.lng;
+      // console.log(lat);
+      // console.log(long);
+      let lat = 40.7713024;
+      let lng = -73.9632393;
+      request({
+        url: 'https://api.foursquare.com/v2/venues/explore',
+        method: 'GET',
+        qs: {
+          client_id: 'JIN1RTWFVHTESSF0J51MA2R3POD12X4OEI0LFR4I0YBUHMAJ',
+          client_secret: 'PD4XAVZK5ADSLYJORCUGK3JKJEWCPANFKIENMGG3NZYW03V1',
+          ll: `${lat},${lng}`,
+          query: 'milkshake',
+          v: '20180323',
+          limit: 2
+        }
+      }, function(err, res, body) {
+        if (err) {
+          console.error(err);
+          // TODO link to error display in UI
+        } else {
+          let jsonBody = JSON.parse(body);
+          let items = jsonBody.response.groups;
+          console.log(items);
+          console.log(items[0].items[0].venue.name);
+          console.log(items[0].items[0].venue.location.address);
+          console.log(items[0].items[0].venue.location.formattedAddress);
+
+          console.log(items[0].items[1].venue.name);
+          console.log(items[0].items[1].venue.location.address);
+          console.log(items[0].items[1].venue.location.formattedAddress);
+          // this.drinkPlaces = [
+          //   {
+          //     name: items[0].venue.name,
+          //     address: items[0].venue.location.address
+          //   }, 
+          //   {
+          //     name: items[1].venue.name,
+          //     address: items[2].venue.location.address
+          //   }
+          // ]
+          // this.setState({drinkPlaces: this.drinkPlaces})
+          // let venues = body['response']['groups'][0]['items'];
+        }
+      });
+    }
+  }
+
+  componentWillReceiveProps(newProps)  {
+    console.log("list component recieving props");
+    console.log(this.props.mapTarget);
+    //  console.log(newProps.maindata)
+    // TODO - strange bug where must click marker a few times before props update, even though devTools react show state/props are fine!!!
+  }
+  
+
   componentWillMount () {
     this.setState({locations: this.props.locations})
     this.setState({filteredLocations: this.props.locations});
     this.filteredLocations = this.props.locations;
     console.log("location list data from props:")
     console.log(this.props.locations);
+    let locations = this.props.locations;
+    let extraDataArray =[1,2,3];
+    
+    for (let i = 0; i < locations.length; i++) {
+      let lat2 = locations[i].location.lat;
+      let lng2 = locations[i].location.lng;
+      console.log(`latlng 2: ${lat2},${lng2}`)
+     
+      // let lat = position.lat;
+      // let long = position.lng;
+      // console.log(lat);
+      // console.log(long);
+      let lat = 40.7713024;
+      let lng = -73.9632393;
 
+      fetch(`https://api.foursquare.com/v2/venues/explore?&client_id=JIN1RTWFVHTESSF0J51MA2R3POD12X4OEI0LFR4I0YBUHMAJ&client_secret=PD4XAVZK5ADSLYJORCUGK3JKJEWCPANFKIENMGG3NZYW03V1&query=milkshake&limit=2&v=20180323&ll= ${lat2},${lng2}`)
+      .then(body => body.json())
+      // .then(response => console.log(`fetch: ${response.meta.code}`))
+      .then(response => 
+        
+        this.setState( state => ({
+        extraData: state.extraData.concat([response])
+        }
+      
+    )
+  )
+  )
+      const request = require('request');
+      request({
+        url: 'https://api.foursquare.com/v2/venues/explore',
+        method: 'GET',
+        qs: {
+          client_id: 'JIN1RTWFVHTESSF0J51MA2R3POD12X4OEI0LFR4I0YBUHMAJ',
+          client_secret: 'PD4XAVZK5ADSLYJORCUGK3JKJEWCPANFKIENMGG3NZYW03V1',
+          ll: `${lat2},${lng2}`,
+          query: 'milkshake',
+          v: '20180323',
+          limit: 2
+        }
+      }, function(err, res, body) {
+        if (err) {
+          console.error(err);
+          // TODO link to error display in UI
+        } else {
+          let jsonBody = JSON.parse(body);
+          let items = jsonBody.response.groups;
+
+          console.log(items);
+          console.log(items[0].items[0].venue.name);
+          console.log(items[0].items[0].venue.location.address);
+          console.log(items[0].items[0].venue.location.formattedAddress);
+
+          console.log(items[0].items[1].venue.name);
+          console.log(items[0].items[1].venue.location.address);
+          console.log(items[0].items[1].venue.location.formattedAddress);
+          // let extraData = {id: i, placeName: items[0].items[0].venue.name, address: items[0].items[0].venue.location.address};
+          let extraDataArray =[];
+          let extraData = {id: i, day: 'sat'};
+          extraDataArray.push(extraData);
+          console.log(`extraDataArray: ${extraDataArray[0].day}`);
+          // console.log(this.props.locations)
+          // this.drinkPlaces = [
+          //   {
+          //     name: items[0].venue.name,
+          //     address: items[0].venue.location.address
+          //   }, 
+          //   {
+          //     name: items[1].venue.name,
+          //     address: items[2].venue.location.address
+          //   }
+          // ]
+          // this.setState({drinkPlaces: this.drinkPlaces})
+          // let venues = body['response']['groups'][0]['items'];
+        }
+      });
+
+
+    }
+    console.log(`extraDataArray 2: ${extraDataArray}`);
     // console.log(this.state.locations);
     // console.log(this.props.locations[0].title);
   }
 
   render() {
     this.locations = this.state.filteredLocations;
+    this.drinkPlaces = this.state.drinkPlaces;
+    this.mapTarget = this.props.mapTarget;
+
+    let showingExtraData;
+    let id = this.mapTarget.id;
+
+    // this.getDrinkPlaceData(this.mapTarget);
     console.log("location render function");
+    if (id >= 0) {
+      console.log(this.state.extraData[id].response);
+    }
+    console.log(`target id is ${id}`);
     // console.log(this.state.locations);
     // this.locations = this.props.locations;
     // console.log(this.locations[0].title);
@@ -69,7 +236,13 @@ class LocationList extends Component {
         </div>
         </div>
         <div className="location-list-info">
-        <h2>location info</h2>
+          <h2>location info</h2>
+          <h3>where to get a milkshake:</h3>
+          <ul className="drink-list-elements">
+            {this.drinkPlaces.map((place) => (
+            <li key={place.name}>{place.name}, {place.address}</li>
+            ))}
+          </ul>
         </div>
       </div>
     );

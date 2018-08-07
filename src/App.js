@@ -9,7 +9,6 @@ import LocationList from './LocationList'
 class App extends Component {
 
   state = {
-    target: {},
     locations: [
       {id: 0, title: 'Park Ave Penthouse', lowerCaseName: 'park ave penthouse' , location: {lat: 40.7713024, lng: -73.9632393}},
       {id: 1, title: 'Chelsea Loft', lowerCaseName: 'chelsea loft', location: {lat: 40.7444883, lng: -73.9949465}},
@@ -25,31 +24,47 @@ class App extends Component {
       {id: 3, title: 'East Village Hip Studio', lowerCaseName: 'east village hip studio', location: {lat: 40.7281777, lng: -73.984377}},
       {id: 4, title: 'TriBeCa Artsy Bachelor Pad', lowerCaseName: 'tribeca artsy bachelor pad', location: {lat: 40.7195264, lng: -74.0089934}},
       {id: 5, title: 'Chinatown Homey Space', lowerCaseName: 'chinatown homey space', location: {lat: 40.7180628, lng: -73.9961237}}
-    ]
+    ],
+    target: [],
   }
 
-  componentDidMount () {
-    // TODO -remove
-    // this.locations = [
-    //   {title: 'Park Ave Penthouse', location: {lat: 40.7713024, lng: -73.9632393}},
-    //   {title: 'Chelsea Loft', location: {lat: 40.7444883, lng: -73.9949465}},
-    //   {title: 'Union Square Open Floor Plan', location: {lat: 40.7347062, lng: -73.9895759}},
-    //   {title: 'East Village Hip Studio', location: {lat: 40.7281777, lng: -73.984377}},
-    //   {title: 'TriBeCa Artsy Bachelor Pad', location: {lat: 40.7195264, lng: -74.0089934}},
-    //   {title: 'Chinatown Homey Space', location: {lat: 40.7180628, lng: -73.9961237}}
-    // ];
+  // componentDidMount () {
+  //   // TODO -remove
+  //   // this.locations = [
+  //   //   {title: 'Park Ave Penthouse', location: {lat: 40.7713024, lng: -73.9632393}},
+  //   //   {title: 'Chelsea Loft', location: {lat: 40.7444883, lng: -73.9949465}},
+  //   //   {title: 'Union Square Open Floor Plan', location: {lat: 40.7347062, lng: -73.9895759}},
+  //   //   {title: 'East Village Hip Studio', location: {lat: 40.7281777, lng: -73.984377}},
+  //   //   {title: 'TriBeCa Artsy Bachelor Pad', location: {lat: 40.7195264, lng: -74.0089934}},
+  //   //   {title: 'Chinatown Homey Space', location: {lat: 40.7180628, lng: -73.9961237}}
+  //   // ];
     
-  const script = document.createElement("script");
+  // const script = document.createElement("script");
 
-  // script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyC-06UeTK6ZdjEr7eoblkbIosKnddwrPyg&v=3";
-  // script.async = true;
-  // script.defer = true;
+  // // script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyC-06UeTK6ZdjEr7eoblkbIosKnddwrPyg&v=3";
+  // // script.async = true;
+  // // script.defer = true;
 
-  document.getElementById('root').appendChild(script);
-  }
+  // document.getElementById('root').appendChild(script);
+  // }
 
-  updateSidebarInfoTarget(target) {
+  // updateStateTarget = (target) => {
+  //   //    TODO - addition of setState here causes error - markers no longer animate
+  //   this.setState({target: target})
+  // }
+
+  updateSidebarInfoTarget = (target) => {
     console.log(`from App component, new sidebar target is: ${target.id} with ${target.title} at ${target.position}`)
+    this.target = [target.id, target.title];
+    // this.updateStateTarget(this.target);
+//    TODO - addition of setState here causes error - markers no longer animate
+    this.setState({
+      target:{
+        id: target.id,
+        title: target.title,
+        position: target.position,
+      }
+    });
   }
 
   updateAppFilteredLocations = (filteredLocations) => {
@@ -57,6 +72,7 @@ class App extends Component {
     console.log(`from App component, updating filtered locations: ${filteredLocations}`);
 
     this.setState({filteredLocations: filteredLocations});
+    this.setState({searchInput: true})
   }
 
   render() {
@@ -64,7 +80,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           {/* <img src={logo} className="App-logo" alt="logo" /> */}
-          <h1 className="App-title">Neighbourhood Map - New York & Coffee</h1>
+          <h1 className="App-title">Neighbourhood Map - New York & Milkshakes</h1>
         </header>
         {/* <p className="App-intro">
           To get started, edit <code>src/App.js</code> and save to reload.
@@ -74,14 +90,16 @@ class App extends Component {
         // see - https://www.npmjs.com/package/google-maps-react#manually-loading-the-google-api
         <div id="map3">
         <Map 
-          google={window.google} 
-          locations={this.state.locations} 
-          updateSidebar={(target) => this.updateSidebarInfoTarget(target)}
+          google={window.google}
+          locations={this.state.locations}
+          updateSidebar={this.updateSidebarInfoTarget}
           filteredLocations={this.state.filteredLocations}
+          searchInput={this.state.searchInput}
         />
         <LocationList 
           locations={this.state.locations} 
           updateAppFilteredLocations={this.updateAppFilteredLocations}
+          mapTarget={this.state.target}
         />
         {/* <InfoPanel/> */}
         </div>

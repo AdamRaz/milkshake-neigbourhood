@@ -99,31 +99,41 @@ class Map extends Component {
   componentDidMount () {
     console.log("mounted map component");
     // see - https://developer.foursquare.com/docs/api/getting-started
-    const request = require('request');
 
-    request({
-      url: 'https://api.foursquare.com/v2/venues/explore',
-      method: 'GET',
-      qs: {
-        client_id: 'JIN1RTWFVHTESSF0J51MA2R3POD12X4OEI0LFR4I0YBUHMAJ',
-        client_secret: 'PD4XAVZK5ADSLYJORCUGK3JKJEWCPANFKIENMGG3NZYW03V1',
-        ll: '40.7243,-74.0018',
-        query: 'coffee',
-        v: '20180323',
-        limit: 1
-      }
-    }, function(err, res, body) {
-      if (err) {
-        console.error(err);
-        // TODO link to error display in UI
-      } else {
-        let jsonBody = JSON.parse(body);
-        let items = jsonBody.response.groups;
-        console.log(items);
-        console.log(jsonBody);
-        // let venues = body['response']['groups'][0]['items'];
-      }
-    });
+    // console.log("making foursquare request");
+    // const request = require('request');
+    // let lat = 40.7713024;
+    // let long = -73.9632393;
+    // request({
+    //   url: 'https://api.foursquare.com/v2/venues/explore',
+    //   method: 'GET',
+    //   qs: {
+    //     client_id: 'JIN1RTWFVHTESSF0J51MA2R3POD12X4OEI0LFR4I0YBUHMAJ',
+    //     client_secret: 'PD4XAVZK5ADSLYJORCUGK3JKJEWCPANFKIENMGG3NZYW03V1',
+    //     ll: `${lat},${long}`,
+    //     query: 'milkshake',
+    //     v: '20180323',
+    //     limit: 2
+    //   }
+    // }, function(err, res, body) {
+    //   if (err) {
+    //     console.error(err);
+    //     // TODO link to error display in UI
+    //   } else {
+    //     let jsonBody = JSON.parse(body);
+    //     let items = jsonBody.response.groups;
+    //     console.log(items);
+    //     console.log(items[0].items[0].venue.name);
+    //     console.log(items[0].items[0].venue.location.address);
+    //     console.log(items[0].items[0].venue.location.formattedAddress);
+
+    //     console.log(items[0].items[1].venue.name);
+    //     console.log(items[0].items[1].venue.location.address);
+    //     console.log(items[0].items[1].venue.location.formattedAddress);
+
+    //     // let venues = body['response']['groups'][0]['items'];
+    //   }
+    // });
 
     
   }
@@ -169,6 +179,10 @@ class Map extends Component {
   };
 
   hideMarkerButton = function(locations, markers) {
+    // let test = 0;
+    if (markers.length > locations.length) {
+
+   
     // console.log(NintendoMap.state);
     // AR - create array of ids to compare against:
     let filteredIdsArray = [];
@@ -197,13 +211,26 @@ class Map extends Component {
  
 
     }
+
+  }
   };
 
-  render() {
+  componentWillReceiveProps () {
+
+    // AR - tried setting function in willRecieveProps to avoid the problem causing map markers not to animate
+    // AR - previously had function called from render() function, not sure how best to keep marker display up-to-date
     let markers = this.state.markers;
+
     let filteredLocations = this.props.filteredLocations;
+
     this.hideMarkerButton(filteredLocations, markers);
-    console.log ("we have markers: " + markers);
+
+  }
+
+  render() {
+    // let markers = this.state.markers;
+    // let filteredLocations = this.props.filteredLocations;
+    // console.log ("we have markers: " + markers);
     return (
       <div className="map-container">
         {/* <br/> */}
