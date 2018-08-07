@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom'
-// import './App.css';
 
 class LocationList extends Component {
 
@@ -11,100 +9,30 @@ class LocationList extends Component {
       address: 'nowhere'
     }],
     extraData: []
-    
   }
 
   filterLocations = (event) => {
-    // AR - does not work for search key words in opposite order
+    // AR - does not work for search key words in opposite/wrong order
     let searchTerm = event.target.value;
     let trimmedSearchTerm = searchTerm.trim().toLowerCase();
     if (trimmedSearchTerm) {
-      console.log(trimmedSearchTerm);
+      // console.log(trimmedSearchTerm);
       this.filteredLocations = this.state.locations.filter((location) => location.lowerCaseName.includes(trimmedSearchTerm));
-      console.log(this.filteredLocations);
+      // console.log(this.filteredLocations);
       this.setState({filteredLocations: this.filteredLocations});
       this.props.updateAppFilteredLocations(this.filteredLocations);
     } else {
-      console.log("resetting filtered locations");
+      // console.log("resetting filtered locations");
       this.setState({filteredLocations: this.props.locations});
       this.props.updateAppFilteredLocations(this.props.locations);
     }
   }
 
-  // updateSidebar = (event) => {
-
-  //   this.props.updateSidebar(markers[i]);
-  // }
-
-  getDrinkPlaceData = (position) => {
-    console.log("before making foursquare request");
-
-    console.log(position);
-    console.log(position.id);
-    console.log(position.title);
-
-    console.log(this.props.locations[0].location)
-
-    if (position.title) {
-      let index = position.id;
-      // let latlng = this.props.locations[index].location;
-      console.log("making main foursquare requests");
-      console.log(position.title);
-      console.log(position.position);
-      const request = require('request');
-      // let lat = position.lat;
-      // let long = position.lng;
-      // console.log(lat);
-      // console.log(long);
-      let lat = 40.7713024;
-      let lng = -73.9632393;
-      request({
-        url: 'https://api.foursquare.com/v2/venues/explore',
-        method: 'GET',
-        qs: {
-          client_id: 'JIN1RTWFVHTESSF0J51MA2R3POD12X4OEI0LFR4I0YBUHMAJ',
-          client_secret: 'PD4XAVZK5ADSLYJORCUGK3JKJEWCPANFKIENMGG3NZYW03V1',
-          ll: `${lat},${lng}`,
-          query: 'milkshake',
-          v: '20180323',
-          limit: 2
-        }
-      }, function(err, res, body) {
-        if (err) {
-          console.error(err);
-          // TODO link to error display in UI
-        } else {
-          let jsonBody = JSON.parse(body);
-          let items = jsonBody.response.groups;
-          console.log(items);
-          console.log(items[0].items[0].venue.name);
-          console.log(items[0].items[0].venue.location.address);
-          console.log(items[0].items[0].venue.location.formattedAddress);
-
-          console.log(items[0].items[1].venue.name);
-          console.log(items[0].items[1].venue.location.address);
-          console.log(items[0].items[1].venue.location.formattedAddress);
-          // this.drinkPlaces = [
-          //   {
-          //     name: items[0].venue.name,
-          //     address: items[0].venue.location.address
-          //   }, 
-          //   {
-          //     name: items[1].venue.name,
-          //     address: items[2].venue.location.address
-          //   }
-          // ]
-          // this.setState({drinkPlaces: this.drinkPlaces})
-          // let venues = body['response']['groups'][0]['items'];
-        }
-      });
-    }
-  }
-
   componentWillReceiveProps(newProps)  {
-    console.log("list component recieving props");
-    console.log(this.props.mapTarget);
+    // console.log("list component recieving props");
+    // console.log(this.props.mapTarget);
     //  console.log(newProps.maindata)
+    
     // TODO - strange bug where must click marker a few times before props update, even though devTools react show state/props are fine!!!
   }
   
@@ -113,88 +41,25 @@ class LocationList extends Component {
     this.setState({locations: this.props.locations})
     this.setState({filteredLocations: this.props.locations});
     this.filteredLocations = this.props.locations;
-    console.log("location list data from props:")
-    console.log(this.props.locations);
+    // console.log("location list data from props:")
+    // console.log(this.props.locations);
     let locations = this.props.locations;
-    let extraDataArray =[1,2,3];
     
     for (let i = 0; i < locations.length; i++) {
       let lat2 = locations[i].location.lat;
       let lng2 = locations[i].location.lng;
-      console.log(`latlng 2: ${lat2},${lng2}`)
      
-      // let lat = position.lat;
-      // let long = position.lng;
-      // console.log(lat);
-      // console.log(long);
-      let lat = 40.7713024;
-      let lng = -73.9632393;
-
+      // see - https://developer.foursquare.com/docs/api/getting-started
       fetch(`https://api.foursquare.com/v2/venues/explore?&client_id=JIN1RTWFVHTESSF0J51MA2R3POD12X4OEI0LFR4I0YBUHMAJ&client_secret=PD4XAVZK5ADSLYJORCUGK3JKJEWCPANFKIENMGG3NZYW03V1&query=milkshake&limit=2&v=20180323&ll= ${lat2},${lng2}`)
       .catch(() => window.alert("FourSquare data request error, please refresh page!")) 
       .then(body => body.json())
-      // .then(response => console.log(`fetch: ${response.meta.code}`))
       .then(response => 
-        
         this.setState( state => ({
-        extraData: state.extraData.concat([response])
-        }
-      
-    )
-  )
-  )
-      // const request = require('request');
-      // request({
-      //   url: 'https://api.foursquare.com/v2/venues/explore',
-      //   method: 'GET',
-      //   qs: {
-      //     client_id: 'JIN1RTWFVHTESSF0J51MA2R3POD12X4OEI0LFR4I0YBUHMAJ',
-      //     client_secret: 'PD4XAVZK5ADSLYJORCUGK3JKJEWCPANFKIENMGG3NZYW03V1',
-      //     ll: `${lat2},${lng2}`,
-      //     query: 'milkshake',
-      //     v: '20180323',
-      //     limit: 2
-      //   }
-      // }, function(err, res, body) {
-      //   if (err) {
-      //     console.error(err);
-      //     // TODO link to error display in UI
-      //   } else {
-      //     let jsonBody = JSON.parse(body);
-      //     let items = jsonBody.response.groups;
-
-      //     console.log(items);
-      //     console.log(items[0].items[0].venue.name);
-      //     console.log(items[0].items[0].venue.location.address);
-      //     console.log(items[0].items[0].venue.location.formattedAddress);
-
-      //     console.log(items[0].items[1].venue.name);
-      //     console.log(items[0].items[1].venue.location.address);
-      //     console.log(items[0].items[1].venue.location.formattedAddress);
-      //     // let extraData = {id: i, placeName: items[0].items[0].venue.name, address: items[0].items[0].venue.location.address};
-      //     let extraDataArray =[];
-      //     let extraData = {id: i, day: 'sat'};
-      //     extraDataArray.push(extraData);
-      //     console.log(`extraDataArray: ${extraDataArray[0].day}`);
-          // console.log(this.props.locations)
-          // this.drinkPlaces = [
-          //   {
-          //     name: items[0].venue.name,
-          //     address: items[0].venue.location.address
-          //   }, 
-          //   {
-          //     name: items[1].venue.name,
-          //     address: items[2].venue.location.address
-          //   }
-          // ]
-          // this.setState({drinkPlaces: this.drinkPlaces})
-          // let venues = body['response']['groups'][0]['items'];
-      //   }
-      // });
-
-
+            extraData: state.extraData.concat([response])
+          })
+        )
+      )
     }
-    // console.log(`extraDataArray 2: ${extraDataArray}`);
     // console.log(this.state.locations);
     // console.log(this.props.locations[0].title);
   }
@@ -204,46 +69,43 @@ class LocationList extends Component {
     this.drinkPlaces = this.state.drinkPlaces;
     this.mapTarget = this.props.mapTarget;
     this.updateSidebar = this.props.updateSidebarFromList;
-    // this.updateDateSidebar = this.props.updateSidebar(markers[i]);
 
-    let showingExtraData;
     let id = this.mapTarget.id;
     let locationName;
-    // this.getDrinkPlaceData(this.mapTarget);
-    console.log("location render function");
+    // console.log("location render function");
     if (id >= 0) {
       // console.log(this.state.extraData[id].response.groups.items[0].venue.name);
       let item = this.state.extraData[id].response.groups;
-      console.log(item[0].items[0].venue.name);
-      console.log(item[0].items[0].venue.location.address);
+      // console.log(item[0].items[0].venue.name);
+      // console.log(item[0].items[0].venue.location.address);
       this.drinkPlaces[0].name = item[0].items[0].venue.name;
       this.drinkPlaces[0].address = item[0].items[0].venue.location.address;
       locationName = 'near ' +this.locations[id].title;
 
     }
-    console.log(`target id is ${id}`);
-    // console.log(this.state.locations);
-    // this.locations = this.props.locations;
-    // console.log(this.locations[0].title);
+
     return (
       <div className="location-list">
         <div className="location-list-items">
         <h2>locations</h2>
-        <input onChange={(event) => this.filterLocations(event)} type='text' placeholder='search locations'/>
         {/* made h2 as h1 taken by main app heading */}
-        <div className="location-list-elements-container">
-        <ul className="location-list-elements" aria-label="selectable location list">
-          {this.locations.map((location) => (
-            <li  onClick={(event) => this.updateSidebar(event, location.id)} key={location.id} role="button" className="location-list-options" tabindex="0">
-            {location.title}
-              <br/>
-              {/* <button onClick={(event) => this.updateSidebar(event, location.id)} className='see-sidebar-info'>
-                Info
-              </button> */}
-            </li>
-          ))}
-        </ul>
-        </div>
+        <input onChange={(event) => this.filterLocations(event)} type='text' placeholder='search locations'/>
+          <div className="location-list-elements-container">
+          <ul className="location-list-elements" aria-label="selectable location list">
+            {this.locations.map((location) => (
+              <li  onClick={(event) => this.updateSidebar(event, location.id)} key={location.id} role="button" className="location-list-options" tabIndex="0">
+              {location.title}
+                <br/>
+                {/* AR - buttons replaced with onClick events on list items abov */}
+
+                {/* <button onClick={(event) => this.updateSidebar(event, location.id)} className='see-sidebar-info'>
+                  Info
+                </button> */}
+
+              </li>
+            ))}
+          </ul>
+          </div>
         </div>
         <div className="location-list-info">
           <h2>location info</h2>
