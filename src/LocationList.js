@@ -248,6 +248,7 @@ class LocationList extends Component {
             <li key={place.name}>{place.name}, {place.address}</li>
             ))}
           </ul>
+          <p>using Foursquare data</p>
         </div>
       </div>
     );
