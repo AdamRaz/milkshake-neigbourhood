@@ -61,10 +61,31 @@ class App extends Component {
     this.setState({
       target:{
         id: target.id,
-        title: target.title,
-        position: target.position,
+        // title: target.title,
+        // position: target.position,
       }
     });
+  }
+
+  updateSidebarInfoFromList = (event, target) => {
+    console.log(`from App component, clicking on list, new sidebar target is: ${target}`)
+    this.setState({
+      target:{
+        id: target,
+        // title: target.title,
+        // position: target.position,
+      }
+    });
+//     this.target = [target.id, target.title];
+//     // this.updateStateTarget(this.target);
+// //    TODO - addition of setState here causes error - markers no longer animate
+//     this.setState({
+//       target:{
+//         id: target.id,
+//         title: target.title,
+//         position: target.position,
+//       }
+//     });
   }
 
   updateAppFilteredLocations = (filteredLocations) => {
@@ -100,7 +121,7 @@ class App extends Component {
           locations={this.state.locations} 
           updateAppFilteredLocations={this.updateAppFilteredLocations}
           mapTarget={this.state.target}
-          updateSidebar={this.updateSidebarInfoTarget}
+          updateSidebarFromList={this.updateSidebarInfoFromList}
         />
         {/* <InfoPanel/> */}
         </div>

@@ -202,11 +202,12 @@ class LocationList extends Component {
     this.locations = this.state.filteredLocations;
     this.drinkPlaces = this.state.drinkPlaces;
     this.mapTarget = this.props.mapTarget;
+    this.updateSidebar = this.props.updateSidebarFromList;
     // this.updateDateSidebar = this.props.updateSidebar(markers[i]);
 
     let showingExtraData;
     let id = this.mapTarget.id;
-
+    let locationName;
     // this.getDrinkPlaceData(this.mapTarget);
     console.log("location render function");
     if (id >= 0) {
@@ -216,6 +217,8 @@ class LocationList extends Component {
       console.log(item[0].items[0].venue.location.address);
       this.drinkPlaces[0].name = item[0].items[0].venue.name;
       this.drinkPlaces[0].address = item[0].items[0].venue.location.address;
+      locationName = 'near ' +this.locations[id].title;
+
     }
     console.log(`target id is ${id}`);
     // console.log(this.state.locations);
@@ -230,9 +233,15 @@ class LocationList extends Component {
         <div className="location-list-elements-container">
         <ul className="location-list-elements">
           {this.locations.map((location) => (
-            <li key={location.id}>{location.title}</li>
+            <li key={location.id}>
+            {location.title}
+              <br/>
+              <button onClick={(event) => this.updateSidebar(event, location.id)} className='see-sidebar-info'>
+                Info
+              </button>
+            </li>
           ))}
-          <li>location 1</li>
+          <li  onClick={(event) => this.updateSidebar(event)}>location 1</li>
           <li>location 2</li>
           <li>location 3</li>
           <li>location 4</li>
@@ -248,7 +257,7 @@ class LocationList extends Component {
         </div>
         <div className="location-list-info">
           <h2>location info</h2>
-          <h3>where to get a milkshake:</h3>
+          <h3>where to get a milkshake {locationName}:</h3>
           <ul className="drink-list-elements">
             {this.drinkPlaces.map((place) => (
             <li key={place.name}>{place.name},<br/> {place.address}</li>
