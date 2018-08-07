@@ -11,14 +11,21 @@ class App extends Component {
   state = {
     target: {},
     locations: [
-      {id: 1, title: 'Park Ave Penthouse', lowerCaseName: 'park ave penthouse' , location: {lat: 40.7713024, lng: -73.9632393}},
-      {id: 2, title: 'Chelsea Loft', lowerCaseName: 'chelsea loft', location: {lat: 40.7444883, lng: -73.9949465}},
-      {id: 3, title: 'Union Square Open Floor Plan', lowerCaseName: 'union square open floor plan', location: {lat: 40.7347062, lng: -73.9895759}},
-      {id: 4, title: 'East Village Hip Studio', lowerCaseName: 'east village hip studio', location: {lat: 40.7281777, lng: -73.984377}},
-      {id: 5, title: 'TriBeCa Artsy Bachelor Pad', lowerCaseName: 'tribeca artsy bachelor pad', location: {lat: 40.7195264, lng: -74.0089934}},
-      {id: 6, title: 'Chinatown Homey Space', lowerCaseName: 'chinatown homey space', location: {lat: 40.7180628, lng: -73.9961237}}
+      {id: 0, title: 'Park Ave Penthouse', lowerCaseName: 'park ave penthouse' , location: {lat: 40.7713024, lng: -73.9632393}},
+      {id: 1, title: 'Chelsea Loft', lowerCaseName: 'chelsea loft', location: {lat: 40.7444883, lng: -73.9949465}},
+      {id: 2, title: 'Union Square Open Floor Plan', lowerCaseName: 'union square open floor plan', location: {lat: 40.7347062, lng: -73.9895759}},
+      {id: 3, title: 'East Village Hip Studio', lowerCaseName: 'east village hip studio', location: {lat: 40.7281777, lng: -73.984377}},
+      {id: 4, title: 'TriBeCa Artsy Bachelor Pad', lowerCaseName: 'tribeca artsy bachelor pad', location: {lat: 40.7195264, lng: -74.0089934}},
+      {id: 5, title: 'Chinatown Homey Space', lowerCaseName: 'chinatown homey space', location: {lat: 40.7180628, lng: -73.9961237}}
     ],
-    filteredLocations: []
+    filteredLocations: [
+      {id: 0, title: 'Park Ave Penthouse', lowerCaseName: 'park ave penthouse' , location: {lat: 40.7713024, lng: -73.9632393}},
+      {id: 1, title: 'Chelsea Loft', lowerCaseName: 'chelsea loft', location: {lat: 40.7444883, lng: -73.9949465}},
+      {id: 2, title: 'Union Square Open Floor Plan', lowerCaseName: 'union square open floor plan', location: {lat: 40.7347062, lng: -73.9895759}},
+      {id: 3, title: 'East Village Hip Studio', lowerCaseName: 'east village hip studio', location: {lat: 40.7281777, lng: -73.984377}},
+      {id: 4, title: 'TriBeCa Artsy Bachelor Pad', lowerCaseName: 'tribeca artsy bachelor pad', location: {lat: 40.7195264, lng: -74.0089934}},
+      {id: 5, title: 'Chinatown Homey Space', lowerCaseName: 'chinatown homey space', location: {lat: 40.7180628, lng: -73.9961237}}
+    ]
   }
 
   componentDidMount () {

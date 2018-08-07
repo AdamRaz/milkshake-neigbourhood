@@ -166,22 +166,47 @@ class NintendoMap extends Component {
   console.log("showMark function");
   };
 
-  hideMarkerButton = function(markers) {
+  hideMarkerButton = function(locations, markers) {
     // console.log(NintendoMap.state);
+    // AR - create array of ids to compare against:
+    let filteredIdsArray = [];
+    // for (let j = 0; j < locations.length; j++) {
+    //   filteredIdsArray.push(locations[j].id)
+    // }
+
+    locations.map((location) => filteredIdsArray.push(location.id));
+    console.log(`hiding function, filtered markers id array: ${filteredIdsArray}`);
+
     for (let i = 0; i < markers.length; i++) {
-      markers[i].setMap(null);
-      console.log(`logging marker id from function ${markers[i].id}`);
+
+     
+
+        // let id = this.props.filteredLocations[j].id;
+
+        if (filteredIdsArray.includes(markers[i].id)) {
+          markers[i].setMap(this.map);
+          console.log(`showing marker id: ${markers[i].id}`);
+        } else {
+          markers[i].setMap(null); 
+          console.log(`hiding marker id: ${markers[i].id}`);
+
+        }
+
+ 
+
     }
   };
 
   render() {
     let markers = this.state.markers;
+    let filteredLocations = this.props.filteredLocations;
+    this.hideMarkerButton(filteredLocations, markers);
     console.log ("we have markers: " + markers);
     return (
       <div className="map-container">
         {/* <br/> */}
         {/* <p>map component content</p> */}
-        <button className="removeMarkers" onClick={() => this.hideMarkerButton(markers)}>hide markers</button>
+        {/* <button className="removeMarkers" onClick={() => this.hideMarkerButton(markers)}>hide markers</button> */}
         <button className="addMarkers" onClick={() => this.showMarkerButton(markers)}>set markers</button>
 
         {/* <div id="map2"></div> */}
