@@ -31,6 +31,11 @@ class LocationList extends Component {
     }
   }
 
+  // updateSidebar = (event) => {
+
+  //   this.props.updateSidebar(markers[i]);
+  // }
+
   getDrinkPlaceData = (position) => {
     console.log("before making foursquare request");
 
@@ -197,6 +202,7 @@ class LocationList extends Component {
     this.locations = this.state.filteredLocations;
     this.drinkPlaces = this.state.drinkPlaces;
     this.mapTarget = this.props.mapTarget;
+    // this.updateDateSidebar = this.props.updateSidebar(markers[i]);
 
     let showingExtraData;
     let id = this.mapTarget.id;
@@ -245,10 +251,10 @@ class LocationList extends Component {
           <h3>where to get a milkshake:</h3>
           <ul className="drink-list-elements">
             {this.drinkPlaces.map((place) => (
-            <li key={place.name}>{place.name}, {place.address}</li>
+            <li key={place.name}>{place.name},<br/> {place.address}</li>
             ))}
           </ul>
-          <p>using Foursquare data</p>
+          <p className="api-credit">using Foursquare data</p>
         </div>
       </div>
     );

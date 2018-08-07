@@ -100,6 +100,7 @@ class App extends Component {
           locations={this.state.locations} 
           updateAppFilteredLocations={this.updateAppFilteredLocations}
           mapTarget={this.state.target}
+          updateSidebar={this.updateSidebarInfoTarget}
         />
         {/* <InfoPanel/> */}
         </div>

@@ -222,6 +222,7 @@ class Map extends Component {
     let markers = this.state.markers;
 
     let filteredLocations = this.props.filteredLocations;
+    // AR - to fix animatin bug: can check event to make sure only does this when keyboard event is ocurring?
 
     this.hideMarkerButton(filteredLocations, markers);
 
