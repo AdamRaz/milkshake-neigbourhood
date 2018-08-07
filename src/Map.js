@@ -4,7 +4,7 @@ import './App.css';
 // import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps";
 // import scriptLoader from 'react-async-script-loader';
 
-class NintendoMap extends Component {
+class Map extends Component {
   state = {
     markers: []
   }
@@ -218,4 +218,4 @@ class NintendoMap extends Component {
   }
 }
 
-export default NintendoMap;
+export default Map;

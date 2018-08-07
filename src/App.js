@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom'
 // import logo from './logo.svg';
 import './App.css';
-import NintendoMap from './nintendoMap'
+import Map from './Map'
 import LocationList from './LocationList'
 // import InfoPanel from './Sidebar.js'
 
@@ -73,7 +73,7 @@ class App extends Component {
       <Route path='/' render={() => (
         // see - https://www.npmjs.com/package/google-maps-react#manually-loading-the-google-api
         <div id="map3">
-        <NintendoMap 
+        <Map 
           google={window.google} 
           locations={this.state.locations} 
           updateSidebar={(target) => this.updateSidebarInfoTarget(target)}
