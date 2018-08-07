@@ -220,7 +220,6 @@ class Map extends Component {
     // AR - tried setting function in willRecieveProps to avoid the problem causing map markers not to animate
     // AR - previously had function called from render() function, not sure how best to keep marker display up-to-date
     let markers = this.state.markers;
-
     let filteredLocations = this.props.filteredLocations;
     // AR - to fix animatin bug: can check event to make sure only does this when keyboard event is ocurring?
 
@@ -228,7 +227,24 @@ class Map extends Component {
 
   }
 
+  animateMarker = (i) => {
+    let google = this.props.google;
+    let markers = this.state.markers;
+    markers.map((marker) => {
+      if (i === marker.id) {
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+      } else {
+        marker.setAnimation(null);
+      }
+    });
+  }
+
   render() {
+    let mapTarget=this.props.mapTarget;
+    console.log(`receiving props in map component, target id is: ${mapTarget.id}`);
+    if (mapTarget.id) {
+      this.animateMarker(mapTarget.id);
+    }
     // let markers = this.state.markers;
     // let filteredLocations = this.props.filteredLocations;
     // console.log ("we have markers: " + markers);

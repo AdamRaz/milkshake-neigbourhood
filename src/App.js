@@ -116,6 +116,7 @@ class App extends Component {
           updateSidebar={this.updateSidebarInfoTarget}
           filteredLocations={this.state.filteredLocations}
           searchInput={this.state.searchInput}
+          mapTarget={this.state.target}
         />
         <LocationList 
           locations={this.state.locations} 
