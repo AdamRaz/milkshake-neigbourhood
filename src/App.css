@@ -41,8 +41,6 @@
 .location-list-items {
 height: 100%;
 width: 50%;
-/* overflow: auto; */
-
 }
 
 .location-list-elements-container {
@@ -55,29 +53,13 @@ width: 50%;
   margin-bottom: 0;
   list-style-type: none;
   overflow: auto;
-  font-size: calc(10px + 0.5vw);
+  font-size: calc(8px + 0.75vw + 0.5vh);
 }
 
 .location-list-info {
   height: 100%;
   width: 50%;
 }
-/* .location-list {
-  background-color: #222;
-  height: 45vh;
-  padding: 2.5vh 0 2.5vh 0;
-  width: 50%;
-  color: white;
-} */
-
-/* .info-panel {
-  background-color: #222;
-  height: 45vh;
-  padding: 2.5vh 0 2.5vh 0;
-  width: 50%;
-  color: white;
-  float:right;
-} */
 
 .map-container {
   height: 0;
@@ -108,4 +90,16 @@ h3 {
   background-color: #555;
   border-radius: 10px;
   margin-bottom: 5px;
+}
+
+.location-list-options {
+  margin: 10px 0 10px 0;
+  padding: 10px 0 10px 0;
+  border: 1px solid grey;
+  border-radius: 10px;
+
+}
+
+input {
+  width: 65%;
 }

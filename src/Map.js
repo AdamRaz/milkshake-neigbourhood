@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-// import { Link } from 'react-router-dom';
 import './App.css';
-// import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps";
-// import scriptLoader from 'react-async-script-loader';
 
 class Map extends Component {
   state = {
@@ -10,80 +7,55 @@ class Map extends Component {
   }
 
   initMap() {
-    console.log("init map inside nintendo component");
-
+    // console.log("init map inside nintendo component");
   }  
 
   componentWillMount () {
-    console.log("will mount map component");
-    console.log(this.props.google);
+    // console.log("will mount map component");
+    // console.log(this.props.google);
     let google = this.props.google;
 
-    // TODO - reference
     this.map = new google.maps.Map(document.getElementById('map'), {
-      //TODO = update this
       center: {lat: 40.7413549, lng: -73.9980244},
       zoom: 11,
       mapTypeControl: false
     });
 
     let locations = this.props.locations; 
-
   
-      this.markers = [];
+    this.markers = [];
 
-      for (let i = 0; i < locations.length; i++) {
-        let position = locations[i].location;
-        let title = locations[i].title;
-        let marker = new google.maps.Marker({
-          position: position,
-          title: title,
-          map: this.map,
-          animation: google.maps.Animation.DROP,
-          id: i
-        });
-        console.log(`marker ${i} data - id: ${marker.id}, title: ${marker.title}, icon: ${marker.icon}`);
+    for (let i = 0; i < locations.length; i++) {
+      let position = locations[i].location;
+      let title = locations[i].title;
+      let marker = new google.maps.Marker({
+        position: position,
+        title: title,
+        map: this.map,
+        animation: google.maps.Animation.DROP,
+        id: i
+      });
+      console.log(`marker ${i} data - id: ${marker.id}, title: ${marker.title}, icon: ${marker.icon}`);
 
-        // marker.addListener('mousedown', function() {
-        //   console.log(`marker: ${marker}`);
-        //   // marker.setMap(null);
-        //   if (marker.getAnimation() !== null) {
-        //     // TODO - set a different colour image ... setIcon method???
-        //     marker.setAnimation(null);
-        //   } else {
-        //     marker.setAnimation(google.maps.Animation.BOUNCE);
-        //     // this.deselectOtherMarkers(marker);
-        //   } 
-        //   // see https://developers.google.com/maps/documentation/javascript/markers       
-        // });
+      // see - https://developers.google.com/maps/documentation/javascript/markers       
+      this.markers.push(marker);
+    }
 
-        this.markers.push(marker);
-        // markers[i].setMap(this.map);
-      }
-    console.log(`marker array: ${this.markers}`);
+    // console.log(`marker array: ${this.markers}`);
     this.setState({markers: this.markers});
-  // let showMarkerButton = document.querySelector('.addMarkers');
-  // let hideMarkerButton = document.querySelector('.removeMarkers');
-      // this.addClickEventToMarkers();
-      this.showMarkerButton(this.markers);
+    this.showMarkerButton(this.markers);
   }
 
   addClickEventToMarkers (i) {
     let markers = this.markers;
     // setting to this.state.markers raised errors when accessing id etc.
-    // can pass info up to app state (function from app that passes update function down to here, then call that to update which marker info should be shown by another component)
-    console.log (`i is ${i}`)
-    console.log(`deselecting markers: ${markers[i].id} ${markers[i].position}`);
-    console.log (`this is ${this}`)
-    console.log (`this.state is ${this.state}`)
-    this.props.updateSidebar(markers[i]);
-    // console.log(`marker ${i} data - id: ${markers[i].id}, title: ${markers[i].title}`);
-    // for (let i = 0; i < markers.length ; i++) {
-    //   markers[i].addListener('click', function() {
-    //     console.log("adding events to markers");
-    //   });
-    // }
 
+    // can pass info up to app state (function from app that passes update function down to here, then call that to update which marker info should be shown by another component)
+    // console.log (`i is ${i}`)
+    // console.log(`deselecting markers: ${markers[i].id} ${markers[i].position}`);
+    // console.log (`this is ${this}`)
+    // console.log (`this.state is ${this.state}`)
+    this.props.updateSidebar(markers[i]);
   }
 
   deselectOtherMarkers (markers, i) {

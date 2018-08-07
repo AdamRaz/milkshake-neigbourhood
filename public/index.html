@@ -3,7 +3,6 @@
   <head>
       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-06UeTK6ZdjEr7eoblkbIosKnddwrPyg&v=3">
       </script>
-
       
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -26,32 +25,21 @@
     <title>Neighbourhood Map - New York & Coffee</title>
 
     <style>
-      /* TODO move this to index.css */
+      /* TODO move this to index.css ?*/
       #map {
           height: 40vh;
           width: 100%;
         }
     </style>
 
+    <!-- <script>
+      // console.log("index hello");
 
+      // function initMap() {
+      //   // console.log("initmap hello");
+      // }
 
-    <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-06UeTK6ZdjEr7eoblkbIosKnddwrPyg&v=3&callback=initMap">
     </script> -->
-
-    <script>
-      console.log("index hello");
-
-      function initMap() {
-        console.log("initmap hello");
-        // NintendoMap.initMap();
-          // map = new google.maps.Map(document.getElementById('map'), {
-          // center: {lat: 40.7413549, lng: -73.9980244},
-          // zoom: 13,
-          // mapTypeControl: false
-          // });
-      }
-
-    </script>
   
   </head>
   <body>
@@ -59,8 +47,7 @@
       You need to enable JavaScript to run this app.
     </noscript>
     <div id="root"></div>
-    
-    <div id="map"></div>
+    <div id="map" role="region" aria-label="google map with markers"></div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.

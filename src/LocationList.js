@@ -131,6 +131,7 @@ class LocationList extends Component {
       let lng = -73.9632393;
 
       fetch(`https://api.foursquare.com/v2/venues/explore?&client_id=JIN1RTWFVHTESSF0J51MA2R3POD12X4OEI0LFR4I0YBUHMAJ&client_secret=PD4XAVZK5ADSLYJORCUGK3JKJEWCPANFKIENMGG3NZYW03V1&query=milkshake&limit=2&v=20180323&ll= ${lat2},${lng2}`)
+      .catch(() => window.alert("FourSquare data request error, please refresh page!")) 
       .then(body => body.json())
       // .then(response => console.log(`fetch: ${response.meta.code}`))
       .then(response => 
@@ -231,14 +232,14 @@ class LocationList extends Component {
         <input onChange={(event) => this.filterLocations(event)} type='text' placeholder='search locations'/>
         {/* made h2 as h1 taken by main app heading */}
         <div className="location-list-elements-container">
-        <ul className="location-list-elements">
+        <ul className="location-list-elements" aria-label="selectable location list">
           {this.locations.map((location) => (
-            <li key={location.id}>
+            <li  onClick={(event) => this.updateSidebar(event, location.id)} key={location.id} role="button" className="location-list-options" tabindex="0">
             {location.title}
               <br/>
-              <button onClick={(event) => this.updateSidebar(event, location.id)} className='see-sidebar-info'>
+              {/* <button onClick={(event) => this.updateSidebar(event, location.id)} className='see-sidebar-info'>
                 Info
-              </button>
+              </button> */}
             </li>
           ))}
         </ul>

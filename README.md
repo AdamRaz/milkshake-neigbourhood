@@ -1,15 +1,16 @@
-# nintendo-neighbourhood
-react single page app of nintendo locations in japan and around the world
+# milkshake-neighbourhood
+react single page app of locations and nearby milkshake bars etc.
 
 
 ## AR notes
 
-using Foursquare data
+
+Using Foursquare data to show a nearby place to grab a milkshake
+
+clone project, then run `npm install` in parent project directory, then `npm start`
 
 
-
-
-
+# original readme from parent/starter project:
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
