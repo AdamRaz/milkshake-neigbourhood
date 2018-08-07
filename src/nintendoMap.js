@@ -65,6 +65,7 @@ class NintendoMap extends Component {
   // let showMarkerButton = document.querySelector('.addMarkers');
   // let hideMarkerButton = document.querySelector('.removeMarkers');
       // this.addClickEventToMarkers();
+      this.showMarkerButton(this.markers);
   }
 
   addClickEventToMarkers (i) {
@@ -124,6 +125,7 @@ class NintendoMap extends Component {
       }
     });
 
+    
   }
 
   showMarkerButton = function(markers) {
@@ -207,7 +209,7 @@ class NintendoMap extends Component {
         {/* <br/> */}
         {/* <p>map component content</p> */}
         {/* <button className="removeMarkers" onClick={() => this.hideMarkerButton(markers)}>hide markers</button> */}
-        <button className="addMarkers" onClick={() => this.showMarkerButton(markers)}>set markers</button>
+        {/* <button className="addMarkers" onClick={() => this.showMarkerButton(markers)}>set markers</button> */}
 
         {/* <div id="map2"></div> */}
         {/* <br/> */}
