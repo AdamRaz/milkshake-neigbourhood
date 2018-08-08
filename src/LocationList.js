@@ -118,12 +118,12 @@ class LocationList extends Component {
         <div className="location-list-info">
           <h2>location info</h2>
           <h3>where to get a milkshake {locationName}:</h3>
-          <ul className="drink-list-elements">
+          <ul className="drink-list-elements" tabIndex="0">
             {this.drinkPlaces.map((place) => (
             <li key={place.name}>{place.name},<br/> {place.address}</li>
             ))}
           </ul>
-          <p className="api-credit">using Foursquare data</p>
+          <a className="api-credit" href="https://developer.foursquare.com/docs/api/venues/details">using Foursquare data</a>
         </div>
       </div>
     );
