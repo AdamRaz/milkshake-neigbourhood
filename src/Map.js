@@ -8,32 +8,37 @@ class Map extends Component {
 
   // AR - create map & markers, then push into an array in state
   componentWillMount () {
-    // console.log("will mount map component");
     let google = this.props.google;
-    this.map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: 40.7413549, lng: -73.9980244},
-      zoom: 11,
-      mapTypeControl: false
-    });
-    let locations = this.props.locations; 
-    this.markers = [];
-    for (let i = 0; i < locations.length; i++) {
-      let position = locations[i].location;
-      let title = locations[i].title;
-      let marker = new google.maps.Marker({
-        position: position,
-        title: title,
-        map: this.map,
-        animation: google.maps.Animation.DROP,
-        id: i
+    if (google) {
+      this.map = new google.maps.Map(document.getElementById('map'), {
+        center: {lat: 40.7413549, lng: -73.9980244},
+        zoom: 11,
+        mapTypeControl: false
       });
-      // console.log(`marker ${i} data - id: ${marker.id}, title: ${marker.title}, icon: ${marker.icon}`);
-      // see - https://developers.google.com/maps/documentation/javascript/markers       
-      this.markers.push(marker);
+      let locations = this.props.locations; 
+      this.markers = [];
+      for (let i = 0; i < locations.length; i++) {
+        let position = locations[i].location;
+        let title = locations[i].title;
+        let marker = new google.maps.Marker({
+          position: position,
+          title: title,
+          map: this.map,
+          animation: google.maps.Animation.DROP,
+          id: i
+        });
+        // console.log(`marker ${i} data - id: ${marker.id}, title: ${marker.title}, icon: ${marker.icon}`);
+        // see - https://developers.google.com/maps/documentation/javascript/markers       
+        this.markers.push(marker);
+      }
+      // console.log(`marker array: ${this.markers}`);
+      this.setState({markers: this.markers});
+      this.addMarkerEventListener(this.markers);
+    } else {
+      console.log("no access to google api, not creating map element");
+      // TODO - log this to locatinList
+
     }
-    // console.log(`marker array: ${this.markers}`);
-    this.setState({markers: this.markers});
-    this.addMarkerEventListener(this.markers);
   }
 
   // AR - pass marker click event (id of marker) up to App component
@@ -123,7 +128,7 @@ class Map extends Component {
   render() {
     let mapTarget=this.props.mapTarget;
     // console.log(`receiving props in map component, target id is: ${mapTarget.id}`);
-    if (mapTarget.id) {
+    if (mapTarget.id >= 0) {
       this.animateMarker(mapTarget.id);
     }
     return (

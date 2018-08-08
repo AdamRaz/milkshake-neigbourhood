@@ -1,7 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-06UeTK6ZdjEr7eoblkbIosKnddwrPyg&v=3">
+    <script>
+      let mapLoadScript = document.createElement('script');
+      mapLoadScript.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyC-06UeTK6ZdjEr7eoblkbIosKnddwrPyg&v=3";
+      mapLoadScript.async = true;
+      mapLoadScript.defer = true;
+      mapLoadScript.onerror = function() {
+        alert("Error loading google maps" /* + this.src*/);
+        console.log("logging google api error")
+      };
+      // AR - note this will not handle errors such as invalid key, maps element will respond automatically
+      document.head.append(mapLoadScript);
     </script>
 
     <!-- AR - tried to use script here to register service worker... -->
