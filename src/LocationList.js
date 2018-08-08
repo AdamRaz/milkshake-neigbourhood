@@ -66,6 +66,7 @@ class LocationList extends Component {
 
   render() {
     this.locations = this.state.filteredLocations;
+    console.log(this.locations);
     // AR - 'drinkPlaces' is foursquare API data
     this.drinkPlaces = this.state.drinkPlaces;
     this.mapTarget = this.props.mapTarget;
@@ -73,9 +74,23 @@ class LocationList extends Component {
     this.errorMessage = this.state.fetchError;
     this.errorMessage2 = "";
     let id = this.mapTarget.id;
+    console.log(id);
     let locationName;
     // console.log("location render function");
 
+    // AR - get location with correct id:
+
+    let locationFromId = this.locations.filter(location => location.id === id);
+    console.log(locationFromId);
+    
+    let locationTitleFromId;
+
+    if (locationFromId.length > 0) {
+      locationTitleFromId = [0].title
+    } else {
+      locationTitleFromId = "...pick a location on-screen!";
+    }
+    
     // AR - just check id is assigned a number from props first (marker ids are 1 to 5)
 
     if (id >= 0) {
@@ -88,7 +103,7 @@ class LocationList extends Component {
         this.drinkPlaces[0].name = item.name || 'data error, please try again later';
         this.drinkPlaces[0].address = item.location.address || 'data unavailable';
         // AR - build string to fit in html heading below
-        locationName = 'near ' + this.locations[id].title;
+        locationName = 'near ' + locationTitleFromId || "I dunno!";
       } else {
         this.errorMessage = "foursquare api data incomplete/not available";
         this.errorMessage2 = "please try again later";
