@@ -29,14 +29,6 @@ class LocationList extends Component {
     }
   }
 
-  componentWillReceiveProps(newProps)  {
-    // console.log("list component recieving props");
-    // console.log(this.props.mapTarget);
-
-    // TODO - strange bug where must click marker a few times before props update, even though devTools react show state/props are fine!!!
-  }
-  
-
   componentWillMount () {
     this.setState({locations: this.props.locations})
     this.setState({filteredLocations: this.props.locations});
