@@ -80,9 +80,13 @@ class Map extends Component {
   };
 
   filterMarkers = function(locations, markers) {
-    // AR - don't filter unless the number of markers on the page is more than the number of visible list items
-    if (markers.length > locations.length) {
-   
+    // // AR - don't filter unless the number of markers on the page is more than the number of visible list items
+    // if (markers.length > locations.length) {
+      console.log(`locations to filter:`);
+      console.log(locations);
+      console.log(`markers to filter by:`);
+      console.log(markers);
+
       // AR - create array of ids to compare against:
       let filteredIdsArray = [];
 
@@ -96,7 +100,7 @@ class Map extends Component {
           markers[i].setMap(null); 
         }
       }
-    }
+    // }
   };
 
   componentWillReceiveProps () {
@@ -104,12 +108,11 @@ class Map extends Component {
 
     // AR - previously had a function called from render() function, not sure how best to keep marker display up-to-date
 
-    let markers = this.state.markers;
-    let filteredLocations = this.props.filteredLocations;
+
 
     // AR - to fix animation bug: can check event to make sure only does this when keyboard event is ocurring?
 
-    this.filterMarkers(filteredLocations, markers);
+    
   }
 
   // AR - after marker id comes up from LocationList (from clicking on list), to App, take id and animate marker id and cancel animation on other markers
@@ -126,7 +129,13 @@ class Map extends Component {
   }
 
   render() {
+    let markers = this.state.markers;
+    let filteredLocations = this.props.filteredLocations;
+    
     let mapTarget=this.props.mapTarget;
+    
+    this.filterMarkers(filteredLocations, markers);
+    
     // console.log(`receiving props in map component, target id is: ${mapTarget.id}`);
     if (mapTarget.id >= 0) {
       this.animateMarker(mapTarget.id);
