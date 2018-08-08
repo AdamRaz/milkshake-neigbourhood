@@ -5,10 +5,11 @@ class LocationList extends Component {
   state = {
     locations: ['york', 'london', 'londonderry', 'new york', 'yorkshire'],
     drinkPlaces: [{
-      name: 'click a marker/location to find out!',
-      address: 'nowhere'
+      name: '',
+      address: ''
     }],
-    extraData: []
+    extraData: [],
+    fetchError: "",
   }
 
   filterLocations = (event) => {
@@ -49,8 +50,8 @@ class LocationList extends Component {
       let lng2 = locations[i].location.lng;
      
       // see - https://developer.foursquare.com/docs/api/getting-started
-      fetch(`https://api.foursquare.com/v2/venues/explore?&client_id=JIN1RTWFVHTESSF0J51MA2R3POD12X4OEI0LFR4I0YBUHMAJ&client_secret=PD4XAVZK5ADSLYJORCUGK3JKJEWCPANFKIENMGG3NZYW03V1&query=milkshake&limit=2&v=20180323&ll= ${lat2},${lng2}`)
-      .catch(() => window.alert("FourSquare data request error, please refresh page!")) 
+      fetch(`https://api.foursquare.com/v2/venues/explore?&client_id=JIN1RTWFVHTESSF0J51MA2R3POD12X4OEI0LFR4I0YBUHMAJ&client_secret=PD4XAVZK5ADSLYJORCUGK3JKJEWCPANFKIENMGG3NZYW03V1&query=milkshake&limit=2&v=20180323&ll=${lat2},${lng2}`)
+      .catch(() => this.setState({fetchError: "foursquare api data incomplete/not available"})) 
       .then(body => body.json())
       .then(response => 
         this.setState( state => ({
@@ -69,7 +70,8 @@ class LocationList extends Component {
     this.drinkPlaces = this.state.drinkPlaces;
     this.mapTarget = this.props.mapTarget;
     this.updateSidebar = this.props.updateSidebarFromList;
-
+    this.errorMessage = this.state.fetchError;
+    this.errorMessage2 = "";
     let id = this.mapTarget.id;
     let locationName;
     // console.log("location render function");
@@ -78,16 +80,18 @@ class LocationList extends Component {
 
     if (id >= 0) {
 
-    // AR - check foursquare data is ready, needs a better check
-      if (this.drinkPlaces[0].name) {
+    // AR - check foursquare data is ready, needs a better check?
+    // AR - need to handle 404 fetch error
+      if (this.state.extraData[0].meta.code === 200) {
         // AR - extract data from fourSquare API response
-        let item = this.state.extraData[id].response.groups;
-        this.drinkPlaces[0].name = item[0].items[0].venue.name;
-        this.drinkPlaces[0].address = item[0].items[0].venue.location.address;
+        let item = this.state.extraData[id].response.groups[0].items[0].venue;
+        this.drinkPlaces[0].name = item.name || 'data error, please try again later';
+        this.drinkPlaces[0].address = item.location.address || 'data unavailable';
         // AR - build string to fit in html heading below
-        locationName = 'near ' +this.locations[id].title;
+        locationName = 'near ' + this.locations[id].title;
       } else {
-        window.alert("no foursquare data available yet");
+        this.errorMessage = "foursquare api data incomplete/not available";
+        this.errorMessage2 = "please try again later";
       }
     }
  
@@ -97,7 +101,7 @@ class LocationList extends Component {
         <div className="location-list-items">
         <h2>locations</h2>
         {/* made h2 as h1 taken by main app heading */}
-        <input onChange={(event) => this.filterLocations(event)} type='text' placeholder='search locations'/>
+        <input onChange={(event) => this.filterLocations(event)} type='text' placeholder='search locations' aria-label="search box for location list"/>
           <div className="location-list-elements-container">
           <ul className="location-list-elements" aria-label="selectable location list">
             {this.locations.map((location) => (
@@ -117,10 +121,12 @@ class LocationList extends Component {
         </div>
         <div className="location-list-info">
           <h2>location info</h2>
+          <h3>click a marker/location!</h3>
           <h3>where to get a milkshake {locationName}:</h3>
           <ul className="drink-list-elements" tabIndex="0">
+          {/* mapping so could add/display more items to places in future */}
             {this.drinkPlaces.map((place) => (
-            <li key={place.name}>{place.name},<br/> {place.address}</li>
+            <li key={place.name || 1}>{this.errorMessage || place.name + ' '}<br/> {this.errorMessage2 || place.address}</li>
             ))}
           </ul>
           <a className="api-credit" href="https://developer.foursquare.com/docs/api/venues/details">using Foursquare data</a>

@@ -26,6 +26,7 @@ navigate to an empty working directory, clone the project with `git clone <inser
 * readme template: https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
 * handling react data  - https://medium.com/@ruthmpardee/passing-data-between-react-components-103ad82ebd17
 * using binding - https://stackoverflow.com/questions/45998744/react-this-state-is-undefined
-
+* error handling - https://javascript.info/onload-onerror
+* Udacity course and people! see https://eu.udacity.com/course/front-end-web-developer-nanodegree--nd001
 
 

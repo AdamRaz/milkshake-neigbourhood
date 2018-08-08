@@ -7,8 +7,11 @@
       mapLoadScript.async = true;
       mapLoadScript.defer = true;
       mapLoadScript.onerror = function() {
-        alert("Error loading google maps" /* + this.src*/);
+        // alert("Error loading google maps");
         console.log("logging google api error")
+        let errorLoadingMap = document.createElement('p');
+        errorLoadingMap.textContent = "Error loading google map, please try again later :-(";
+        document.getElementById('map').appendChild(errorLoadingMap);
       };
       // AR - note this will not handle errors such as invalid key, maps element will respond automatically
       document.head.append(mapLoadScript);
