@@ -21,7 +21,7 @@ navigate to an empty working directory, clone the project with `git clone <inser
 
 * **Adam Razzak** 
 
-## Acknowledgments
+## Acknowledgements
 
 * readme template: https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
 * handling react data  - https://medium.com/@ruthmpardee/passing-data-between-react-components-103ad82ebd17
