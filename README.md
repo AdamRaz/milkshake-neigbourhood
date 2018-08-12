@@ -30,3 +30,10 @@ navigate to an empty working directory, clone the project with `git clone <inser
 * Udacity course and people! see https://eu.udacity.com/course/front-end-web-developer-nanodegree--nd001
 
 
+## project preview:
+
+app screens:
+
+![image of neighbourhood app screen](./readme-img-2.PNG "neighbourhood app screen")
+
+![image of neighbourhood app screen](./readme-img-3.PNG "neighbourhood app screen")
