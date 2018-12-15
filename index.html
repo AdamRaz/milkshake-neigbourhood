@@ -1,0 +1,13 @@
+<!doctype html><html lang="en"><head><script>let mapLoadScript = document.createElement('script');
+      mapLoadScript.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyC-06UeTK6ZdjEr7eoblkbIosKnddwrPyg&v=3";
+      mapLoadScript.async = true;
+      mapLoadScript.defer = true;
+      mapLoadScript.onerror = function() {
+        // alert("Error loading google maps");
+        console.log("logging google api error")
+        let errorLoadingMap = document.createElement('p');
+        errorLoadingMap.textContent = "Error loading google map, please try again later :-(";
+        document.getElementById('map').appendChild(errorLoadingMap);
+      };
+      // AR - note this will not handle errors such as invalid key, maps element will respond automatically
+      document.head.append(mapLoadScript);</script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name="theme-color" content="#000000"><link rel="manifest" href="/milkshake-neigbourhood/manifest.json"><link rel="shortcut icon" href="/milkshake-neigbourhood/favicon.ico"><title>Neighbourhood Map - New York & Milkshakes</title><style>#map{height:40vh;width:100%}</style><link href="/milkshake-neigbourhood/static/css/main.d3d2aacd.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div><div id="map" role="region" aria-label="google map with markers"></div><script type="text/javascript" src="/milkshake-neigbourhood/static/js/main.b684e3c8.js"></script></body></html>
